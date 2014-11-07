@@ -1,4 +1,8 @@
 csl
 ===
 
-CSL style shhets for pubs.
+CSL style sheets for publications.
+
+CSL style sheets to format citations and references for various journals.
+
+
