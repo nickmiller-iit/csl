@@ -3,7 +3,7 @@
 
 	<info>
 		<title>Journal of Applied Entomology-devel</title>
-		<id>tmp00001</id>
+		<id>https://github.com/nickmiller-unl/csl/blob/master/JournalAppliedEntomology.csl</id>
 		<category citation-format="author-date"/>
 		<category field="biology"/>
 		<author>
