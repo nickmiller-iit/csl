@@ -20,7 +20,7 @@
 
 	<macro name="author-short">
 		<names variable="author">
-			<name form="short"/>
+			<name form="short" delimiter=", " delimiter-precedes-last="never" and="text"/>
 		</names>	
 	</macro>
 
@@ -29,6 +29,33 @@
 		<date-part name="year"/>
 		</date>
 	</macro>
+	
+	<macro name="edition">
+    <choose>
+      <if is-numeric="edition">
+        <group delimiter=" ">
+          <number variable="edition" form="ordinal"/>
+          <text term="edition"/>
+        </group>
+      </if>
+      <else>
+        <text variable="edition"/>
+      </else>
+    </choose>
+  </macro>
+  
+  	<macro name="publisher">
+    	<group delimiter=", ">
+      	<text variable="publisher"/>
+      	<text variable="publisher-place"/>
+    	</group>
+  	</macro>
+  	
+  	<macro name="editor">
+  		<names variable="editor" prefix="Ed by ">
+  			<name initialize-with=""/>
+  		</names>
+  	</macro>
 
 	<citation et-al-min="3" et-al-use-first="1" disambiguate-add-year-suffix="true" collapse="year">
 		<sort>
@@ -41,7 +68,7 @@
 		</layout>
 	</citation>
 
-	<bibliography>
+	<bibliography line-spacing="2">
 		<sort>
 			<key macro="author"/>
 			<key macro="issued"/>
@@ -51,12 +78,32 @@
 				<text macro="author"/>
 				<text macro="issued"/>
 			</group>
-			<group>
-			<text variable="title" suffix=". "/>
-			<text variable="container-title-short" suffix=". "/>
-			<text variable="volume" suffix=", "/>
-			<text variable="page"/>
-			</group>
+			<choose>
+				<if type="book" match="any">
+					<group>
+						<text variable="title" suffix=". "/>
+						<text macro="edition" suffix=". "/>
+						<text macro="publisher"/>
+					</group>
+				</if>
+				<else-if type="chapter">
+					<group>
+						<text variable="title" suffix=". "/>
+						<text variable="container-title" prefix="In: " suffix=". "/>
+						<text macro="editor" suffix=", "/>
+						<text macro="publisher" suffix=", "/>
+						<text variable="page"/>
+					</group>
+				</else-if>
+				<else>
+					<group>
+						<text variable="title" suffix=". "/>
+						<text variable="container-title-short" suffix=". "/>
+						<text variable="volume" suffix=", "/>
+						<text variable="page"/>
+					</group>
+				</else>
+			</choose>
 		</layout>
 	</bibliography>
 
